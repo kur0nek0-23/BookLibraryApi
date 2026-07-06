@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BookLibraryApi.Data;
 using BookLibraryApi.Dtos;
@@ -60,6 +61,7 @@ namespace BookLibraryApi.Controllers
 
         // POST: api/books
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<BookDto>> CreateBook(CreateBookDto dto)
         {
             var author = await _context.Authors.FindAsync(dto.AuthorId);
@@ -95,6 +97,7 @@ namespace BookLibraryApi.Controllers
 
         // PUT: api/books/5
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateBook(int id, UpdateBookDto dto)
         {
             var book = await _context.Books
@@ -123,6 +126,7 @@ namespace BookLibraryApi.Controllers
 
         // DELETE: api/books/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteBook(int id)
         {
             var book = await _context.Books.FindAsync(id);
